@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3cm3a0q8se3b"]
+
+[ext_resource type="Script" path="res://ponyo.gd" id="1_gn70j"]
+[ext_resource type="Texture2D" uid="uid://c661xllpkjgsu" path="res://assets/ponyo 2.png" id="2_tu5j0"]
+[ext_resource type="Texture2D" uid="uid://7jmu7dl5wacv" path="res://assets/ponyo.png" id="3_h8y3a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gddwm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tu5j0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h8y3a")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjopw"]
+radius = 105.0
+height = 222.0
+
+[node name="ponyo" type="CharacterBody2D"]
+script = ExtResource("1_gn70j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.211, 0.211)
+sprite_frames = SubResource("SpriteFrames_gddwm")
+animation = &"flying"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -1)
+shape = SubResource("CapsuleShape2D_rjopw")

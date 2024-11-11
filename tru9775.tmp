@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://bha6juy8w2lf0"]
+
+[ext_resource type="Script" path="res://trunk.gd" id="1_8pr1a"]
+[ext_resource type="Texture2D" uid="uid://dns32f75jenfh" path="res://assets/trunk.png" id="1_pi66k"]
+[ext_resource type="Script" path="res://collision_shape_2d_4.gd" id="2_gt4jq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy5p3"]
+size = Vector2(101, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1r5l"]
+size = Vector2(101.5, 674.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fqgd"]
+size = Vector2(100, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7gg8"]
+size = Vector2(100, 623)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irjqr"]
+size = Vector2(102, 161)
+
+[node name="trunk" type="Area2D" groups=["trunks"]]
+script = ExtResource("1_8pr1a")
+
+[node name="lower" type="Sprite2D" parent="."]
+position = Vector2(1, -113.877)
+scale = Vector2(1, 1.56415)
+texture = ExtResource("1_pi66k")
+offset = Vector2(0, 380)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11.5, 95.5)
+shape = SubResource("RectangleShape2D_hy5p3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(11.25, 451.75)
+shape = SubResource("RectangleShape2D_c1r5l")
+
+[node name="upper" type="Sprite2D" parent="."]
+position = Vector2(0, 84.4812)
+scale = Vector2(1, 1.38679)
+texture = ExtResource("1_pi66k")
+offset = Vector2(0, -380)
+flip_v = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(10, -104.5)
+shape = SubResource("RectangleShape2D_0fqgd")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(10, -436.5)
+shape = SubResource("RectangleShape2D_k7gg8")
+script = ExtResource("2_gt4jq")
+
+[node name="ScoreArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(11, -3.5)
+shape = SubResource("RectangleShape2D_irjqr")
+
+[connection signal="body_entered" from="." to="CollisionShape2D4" method="_on_trunk_body_entered"]
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

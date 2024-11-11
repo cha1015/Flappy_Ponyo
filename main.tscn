@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://da60746p58sua"]
+
+[ext_resource type="Texture2D" uid="uid://nygpdnias1b3" path="res://assets/bg pixel.png" id="1_qy85s"]
+[ext_resource type="Script" path="res://main.gd" id="1_swyrd"]
+[ext_resource type="PackedScene" uid="uid://bha6juy8w2lf0" path="res://trunk.tscn" id="2_7wf5m"]
+[ext_resource type="PackedScene" uid="uid://b3cm3a0q8se3b" path="res://ponyo.tscn" id="3_gabut"]
+[ext_resource type="PackedScene" uid="uid://cou7pxwiwrtjm" path="res://ground.tscn" id="4_032ij"]
+[ext_resource type="PackedScene" uid="uid://b23uetlmcar8w" path="res://game_over.tscn" id="6_fm3bp"]
+
+[sub_resource type="SystemFont" id="SystemFont_xlid0"]
+font_weight = 250
+
+[node name="Main" type="Node"]
+script = ExtResource("1_swyrd")
+trunk_scene = ExtResource("2_7wf5m")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(326, -285)
+scale = Vector2(0.907619, 0.907619)
+texture = ExtResource("1_qy85s")
+offset = Vector2(432, 834)
+
+[node name="ponyo" parent="." instance=ExtResource("3_gabut")]
+position = Vector2(-128, 362)
+scale = Vector2(0.454, 0.454)
+
+[node name="ground" parent="." instance=ExtResource("4_032ij")]
+z_index = 1
+
+[node name="trunktimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="scorelabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -114.0
+offset_top = 24.0
+offset_right = -21.0
+offset_bottom = 59.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.992157, 0.866667, 0.623529, 1)
+theme_override_fonts/font = SubResource("SystemFont_xlid0")
+theme_override_font_sizes/font_size = 25
+text = "score: 0"
+
+[node name="GameOver" parent="." instance=ExtResource("6_fm3bp")]
+
+[connection signal="hit" from="ground" to="." method="_on_ground_hit"]
+[connection signal="timeout" from="trunktimer" to="." method="_on_trunktimer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]
